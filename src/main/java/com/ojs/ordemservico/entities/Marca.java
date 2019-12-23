@@ -20,6 +20,10 @@ public class Marca {
     @Size(min = 2, max = 50)
     private String descricao;
 
+    public Marca() {
+
+    }
+
     public Long getId() {
         return id;
     }

@@ -20,6 +20,10 @@ public class Tipo {
     @Size(min = 2, max = 50)
     private String descricao;
 
+    public Tipo() {
+
+    }
+
     public Long getId() {
         return id;
     }
