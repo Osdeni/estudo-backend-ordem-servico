@@ -18,7 +18,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/autenticar")
-public class Autenticacao {
+public class AutenticacaoController {
     @Autowired
     AuthenticationManager authManager;
 
