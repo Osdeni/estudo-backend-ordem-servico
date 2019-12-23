@@ -1,5 +1,6 @@
 package com.ojs.ordemservico.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -33,6 +34,7 @@ public class Usuario implements UserDetails, Serializable {
     @NotBlank
     private String senha;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY)
     private Funcionario pessoa;
 

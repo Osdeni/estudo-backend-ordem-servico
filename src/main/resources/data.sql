@@ -23,6 +23,6 @@ INSERT INTO pessoas (tipo, email, endereco, nome, telefone, usuario_id) VALUES (
 INSERT INTO pessoas (tipo, email, endereco, nome, telefone, usuario_id) VALUES ('C', 'ghi@gmail.com', 'Endereço ghi', 'Ghi', '(48) 99124-5987', 0);
 
 -- ordens de serviço
-insert into ordem_servicos (data_abertura, data_finalizacao, defeito, cliente_id, marca_id, responsavel_id, tipo_id) VALUES ('2019-12-23', null, 'trocando os canais de forma automática', 3, 1, 1, 1);
-insert into ordem_servicos (data_abertura, data_finalizacao, defeito, cliente_id, marca_id, responsavel_id, tipo_id) VALUES ('2019-12-22', null, 'as vezes liga, as vezes não liga', 3, 6, 1, 2);
-insert into ordem_servicos (data_abertura, data_finalizacao, defeito, cliente_id, marca_id, responsavel_id, tipo_id) VALUES ('2019-12-23', null, 'tela não está funcionando', 4, 4, 2, 2);
+insert into ordem_servicos (data_abertura, data_finalizacao, defeito, cliente_id, marca_id, responsavel_id, tipo_id, status) VALUES ('2019-12-23', null, 'trocando os canais de forma automática', 3, 1, 1, 1, 0);
+insert into ordem_servicos (data_abertura, data_finalizacao, defeito, cliente_id, marca_id, responsavel_id, tipo_id, status) VALUES ('2019-12-22', null, 'as vezes liga, as vezes não liga', 3, 6, 1, 2, 1);
+insert into ordem_servicos (data_abertura, data_finalizacao, defeito, cliente_id, marca_id, responsavel_id, tipo_id, status) VALUES ('2019-12-23', null, 'tela não está funcionando', 4, 4, 2, 2, 3);

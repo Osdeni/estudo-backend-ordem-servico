@@ -1,50 +1,40 @@
-package com.ojs.ordemservico.entities;
+package com.ojs.ordemservico.controllers.dto.ordemServicos;
 
+import com.ojs.ordemservico.entities.*;
 import com.ojs.ordemservico.enums.Status;
+import org.springframework.data.domain.Page;
 
-import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@Table(name = "ordem_servicos")
-public class OrdemServico {
-
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class OrdemServicoDto {
     private Long id;
 
-    @Column(nullable = false)
     private Date dataAbertura;
 
-    @Column
     private Date dataFinalizacao;
 
-    @Column
     private String defeito;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "tipo_id")
     private Tipo tipo;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "marca_id")
     private Marca marca;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "cliente_id")
     private Pessoa cliente;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "responsavel_id")
     private Funcionario responsavel;
 
-    @Column(name = "status", columnDefinition = "integer default 0")
-    @Enumerated(value = EnumType.ORDINAL)
     private Status status;
 
-    public OrdemServico() {
-
+    public OrdemServicoDto(OrdemServico ordemServico) {
+        this.id = ordemServico.getId();
+        this.dataAbertura = ordemServico.getDataAbertura();
+        this.dataFinalizacao = ordemServico.getDataFinalizacao();
+        this.defeito = ordemServico.getDefeito();
+        this.tipo = ordemServico.getTipo();
+        this.marca = ordemServico.getMarca();
+        this.cliente = ordemServico.getCliente();
+        this.responsavel = ordemServico.getResponsavel();
+        this.status = ordemServico.getStatus();
     }
 
     public Long getId() {
@@ -113,5 +103,9 @@ public class OrdemServico {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public static Page<OrdemServicoDto> converter(Page<OrdemServico> ordens) {
+        return ordens.map(ordemServico -> new OrdemServicoDto(ordemServico));
     }
 }

@@ -1,11 +1,14 @@
 package com.ojs.ordemservico.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
 @DiscriminatorValue(value = "F")
 public class Funcionario extends Pessoa {
 
+    @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", nullable = true, columnDefinition = "bigint default 0")
     private Usuario usuario;
