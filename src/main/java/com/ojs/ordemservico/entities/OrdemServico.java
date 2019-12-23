@@ -1,9 +1,6 @@
 package com.ojs.ordemservico.entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -18,7 +15,7 @@ public class OrdemServico {
     @Column(nullable = false)
     private Date dataAbertura;
 
-    @Column()
+    @Column
     private Date dataFinalizacao;
 
     @Column

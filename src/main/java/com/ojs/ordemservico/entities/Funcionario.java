@@ -7,8 +7,16 @@ import javax.persistence.*;
 public class Funcionario extends Pessoa {
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = true, columnDefinition = "bigint default 0")
     private Usuario usuario;
+
+    public Funcionario() {
+
+    }
+
+    public Funcionario(String nome, String email, String telefone, String endereco) {
+        super(nome, email, telefone, endereco);
+    }
 
     public Usuario getUsuario() {
         return usuario;
