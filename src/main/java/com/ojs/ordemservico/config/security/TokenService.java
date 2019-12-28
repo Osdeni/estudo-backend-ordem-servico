@@ -19,16 +19,22 @@ public class TokenService {
 	@Value("${jwt.secret}")
 	private String secret;
 
+	private Usuario usuarioLogado;
+
+	public Usuario getUsuarioLogado() {
+		return usuarioLogado;
+	}
+
 	public String gerarToken(Authentication authentication) {
-		Usuario logado = (Usuario) authentication.getPrincipal();
+		usuarioLogado = (Usuario) authentication.getPrincipal();
 
 		Date hoje = new Date();
 		Date dataExpiracao = new Date(hoje.getTime() + Long.parseLong(expiration));
 
 		return Jwts.builder()
 				.setIssuer("Api Ordem de Serviço")
-				.setSubject(logado.getId().toString())
-				.claim("nome", logado.getPessoa().getNome())
+				.setSubject(usuarioLogado.getId().toString())
+				.claim("nome", usuarioLogado.getPessoa().getNome())
 				.setIssuedAt(hoje)
 				.setExpiration(dataExpiracao)
 				.signWith(SignatureAlgorithm.HS256, secret)
