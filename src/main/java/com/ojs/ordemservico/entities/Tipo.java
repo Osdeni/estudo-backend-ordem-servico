@@ -24,6 +24,10 @@ public class Tipo {
 
     }
 
+    public Tipo(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }

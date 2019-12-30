@@ -15,9 +15,11 @@ public class OrdemServico {
     private Long id;
 
     @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date dataAbertura;
 
     @Column
+    @Temporal(TemporalType.DATE)
     private Date dataFinalizacao;
 
     @Column
@@ -44,7 +46,8 @@ public class OrdemServico {
     private Status status;
 
     public OrdemServico() {
-
+        this.dataFinalizacao = null;
+        this.status = Status.ABERTO;
     }
 
     public Long getId() {
