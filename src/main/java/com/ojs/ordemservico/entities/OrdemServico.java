@@ -1,12 +1,14 @@
 package com.ojs.ordemservico.entities;
 
 import com.ojs.ordemservico.enums.Status;
+import com.querydsl.core.annotations.QueryEntity;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "ordem_servicos")
+@QueryEntity
 public class OrdemServico {
 
     @Id

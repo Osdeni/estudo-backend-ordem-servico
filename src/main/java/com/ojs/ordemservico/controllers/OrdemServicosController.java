@@ -5,10 +5,12 @@ import com.ojs.ordemservico.controllers.dto.ordemServicos.OrdemServicoDto;
 import com.ojs.ordemservico.entities.OrdemServico;
 import com.ojs.ordemservico.enums.Status;
 import com.ojs.ordemservico.repository.OrdemServicoRepository;
+import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,14 +29,14 @@ public class OrdemServicosController {
 
     @GetMapping
     public ResponseEntity<Page<OrdemServicoDto>> all(
-            @RequestParam("status") Optional<Status> status,
+            @QuerydslPredicate(root = OrdemServico.class) Predicate predicate,
             @PageableDefault(sort = {"dataAbertura"}, direction = Sort.Direction.DESC) Pageable paginacao) {
 
         Page<OrdemServico> ordens;
-        if (!status.isPresent()) {
-            ordens = ordemServicoRepository.findAll(paginacao);
+        if (predicate != null) {
+            ordens = ordemServicoRepository.findAll(predicate, paginacao);
         } else {
-            ordens = ordemServicoRepository.findByStatus(status.get(), paginacao);
+            ordens = ordemServicoRepository.findAll(paginacao);
         }
 
         return ResponseEntity.ok().body(OrdemServicoDto.converter(ordens));
