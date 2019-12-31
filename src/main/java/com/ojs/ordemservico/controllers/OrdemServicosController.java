@@ -1,5 +1,6 @@
 package com.ojs.ordemservico.controllers;
 
+import com.ojs.ordemservico.config.exception.ResourceNotFoundException;
 import com.ojs.ordemservico.controllers.dto.ordemServicos.FormOrdemServicoDto;
 import com.ojs.ordemservico.controllers.dto.ordemServicos.OrdemServicoDto;
 import com.ojs.ordemservico.entities.OrdemServico;
@@ -40,6 +41,15 @@ public class OrdemServicosController {
         }
 
         return ResponseEntity.ok().body(OrdemServicoDto.converter(ordens));
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<OrdemServicoDto> get(@PathVariable Long id) throws ResourceNotFoundException
+    {
+        OrdemServico ordemServico = this.ordemServicoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Ordem de serviço não encontrada: " + id));
+
+        return ResponseEntity.ok().body(new OrdemServicoDto(ordemServico));
     }
 
     @PostMapping
