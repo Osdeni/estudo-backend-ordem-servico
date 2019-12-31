@@ -11,6 +11,10 @@ public class Cliente extends Pessoa {
 
     }
 
+    public Cliente(Long id) {
+        this.id = id;
+    }
+
     public Cliente(String nome, String email, String telefone, String endereco) {
         super(nome, email, telefone, endereco);
     }

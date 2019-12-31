@@ -24,6 +24,10 @@ public class Marca {
 
     }
 
+    public Marca(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }
