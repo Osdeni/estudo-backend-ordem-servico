@@ -47,14 +47,18 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 			.antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
 			.antMatchers(HttpMethod.POST, "/autenticar").permitAll()
+			.antMatchers(HttpMethod.POST, "/ordem-servicos").hasRole("ATENDIMENTO")
+			.antMatchers(HttpMethod.POST, "/pessoas").hasRole("ATENDIMENTO")
 			.anyRequest().authenticated()
 			.and().csrf().disable()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class)
 			.cors()
-			.and()
-				.exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED));;
+				.and().exceptionHandling().accessDeniedHandler((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_FORBIDDEN))
+				.and().exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED));
 
+		// TODO busca todos os endpoints e "montar as regras" de quais rotas podem ser acessadas por quem.
+		// TODO descobrir como se faz isso dinamicamente, onde se registra isso.
 	}
 
 	// recursos estáticos

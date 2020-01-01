@@ -1,5 +1,6 @@
 package com.ojs.ordemservico.config.security;
 
+import com.ojs.ordemservico.controllers.dto.autenticacao.UsuarioDto;
 import com.ojs.ordemservico.entities.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -34,7 +35,7 @@ public class TokenService {
 		return Jwts.builder()
 				.setIssuer("Api Ordem de Serviço")
 				.setSubject(usuarioLogado.getId().toString())
-				.claim("nome", usuarioLogado.getPessoa().getNome())
+				.claim("usuario", new UsuarioDto(usuarioLogado))
 				.setIssuedAt(hoje)
 				.setExpiration(dataExpiracao)
 				.signWith(SignatureAlgorithm.HS256, secret)

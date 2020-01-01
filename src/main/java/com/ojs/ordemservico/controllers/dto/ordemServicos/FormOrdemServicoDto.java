@@ -101,7 +101,7 @@ public class FormOrdemServicoDto {
 
         ordem.setTipo(new Tipo(this.tipo));
         ordem.setMarca(new Marca(this.marca));
-        ordem.setCliente(new Cliente(this.cliente.getId()));
+        ordem.setCliente(new Pessoa(this.cliente.getId()));
         ordem.setResponsavel(new Funcionario(this.responsavel.getId()));
 
         return ordem;

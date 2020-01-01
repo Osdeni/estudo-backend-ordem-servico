@@ -30,6 +30,10 @@ public class Pessoa {
 
     }
 
+    public Pessoa(Long id) {
+        this.id = id;
+    }
+
     public Pessoa(String nome, String email, String telefone, String endereco) {
         this.nome = nome;
         this.email = email;

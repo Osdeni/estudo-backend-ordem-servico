@@ -2,15 +2,18 @@ package com.ojs.ordemservico.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "usuarios")
@@ -37,6 +40,14 @@ public class Usuario implements UserDetails, Serializable {
     @JsonIgnore
     @OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY)
     private Funcionario pessoa;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "usuario_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Set<Role> roles;
 
     public Long getId() {
         return id;
@@ -67,9 +78,19 @@ public class Usuario implements UserDetails, Serializable {
         this.pessoa = pessoa;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> list = new ArrayList<>();
+
+        getRoles().forEach(role -> {
+            list.add(new SimpleGrantedAuthority("ROLE_" + role.getNome()));
+        });
+
+        return list;
     }
 
     @Override
