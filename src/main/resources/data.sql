@@ -37,3 +37,14 @@ insert into ordem_servicos (data_abertura, data_finalizacao, defeito, cliente_id
 insert into ordem_servicos (data_abertura, data_finalizacao, defeito, cliente_id, marca_id, responsavel_id, tipo_id, status) VALUES ('2019-12-23', null, 'trocando os canais de forma automática outro tecnico', 5, 1, 3, 1, 0);
 insert into ordem_servicos (data_abertura, data_finalizacao, defeito, cliente_id, marca_id, responsavel_id, tipo_id, status) VALUES ('2019-12-22', null, 'as vezes liga, as vezes não liga', 4, 6, 2, 2, 1);
 insert into ordem_servicos (data_abertura, data_finalizacao, defeito, cliente_id, marca_id, responsavel_id, tipo_id, status) VALUES ('2019-12-23', null, 'tela não está funcionando', 5, 4, 3, 2, 3);
+insert into ordem_servicos (data_abertura, data_finalizacao, defeito, cliente_id, marca_id, responsavel_id, tipo_id, status) VALUES ('2019-12-26', null, 'Tela com ponto falho', 5, 4, 3, 2, 2);
+
+-- evoluções --
+insert into evolucoes (ordem_servico_id, data, descricao, status) values (3, '2019-12-23 10:05:00', 'Iniciada', 1);
+
+insert into evolucoes (ordem_servico_id, data, descricao, status) values (4, '2019-12-23 10:05:00', 'Iniciada', 1);
+insert into evolucoes (ordem_servico_id, data, descricao, status) values (4, '2019-12-23 16:10:00', 'Realizado diversos testes', null);
+insert into evolucoes (ordem_servico_id, data, descricao, status) values (4, '2019-12-23 16:13:00', 'Realizada troca de capacitores', 3);
+
+insert into evolucoes (ordem_servico_id, data, descricao, status) values (5, '2019-12-27 08:00:00', 'Iniciada', 1);
+insert into evolucoes (ordem_servico_id, data, descricao, status) values (5, '2019-12-27 10:10:00', 'Solicitado nova tela', 2);
