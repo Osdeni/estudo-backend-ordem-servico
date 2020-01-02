@@ -10,7 +10,7 @@ public class Funcionario extends Pessoa {
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id", nullable = true, columnDefinition = "bigint default 0")
+    @JoinColumn(name = "usuario_id", nullable = true)
     private Usuario usuario;
 
     public Funcionario() {
