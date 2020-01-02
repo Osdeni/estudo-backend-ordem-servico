@@ -12,11 +12,14 @@ import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Long>,
         QuerydslPredicateExecutor<OrdemServico>,
         QuerydslBinderCustomizer<QOrdemServico> {
 
+    public Optional<OrdemServico> findById(Long id);
     public Page<OrdemServico> findByStatus(Status status, Pageable pageable);
 
     @Override

@@ -5,6 +5,7 @@ import com.querydsl.core.annotations.QueryEntity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "ordem_servicos")
@@ -47,9 +48,20 @@ public class OrdemServico {
     @Enumerated(value = EnumType.ORDINAL)
     private Status status;
 
+    @OneToMany(mappedBy = "ordemServico",
+            targetEntity = Evolucao.class,
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private List<Evolucao> evolucoes;
+
     public OrdemServico() {
         this.dataFinalizacao = null;
         this.status = Status.ABERTO;
+    }
+
+    public OrdemServico(Long id) {
+        super();
+        this.id = id;
     }
 
     public Long getId() {
@@ -118,5 +130,13 @@ public class OrdemServico {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public List<Evolucao> getEvolucoes() {
+        return evolucoes;
+    }
+
+    public void setEvolucoes(List<Evolucao> evolucoes) {
+        this.evolucoes = evolucoes;
     }
 }

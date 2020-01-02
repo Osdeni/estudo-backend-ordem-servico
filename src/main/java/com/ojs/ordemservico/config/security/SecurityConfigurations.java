@@ -49,13 +49,14 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.POST, "/autenticar").permitAll()
 			.antMatchers(HttpMethod.POST, "/ordem-servicos").hasRole("ATENDIMENTO")
 			.antMatchers(HttpMethod.POST, "/pessoas").hasRole("ATENDIMENTO")
+			.antMatchers(HttpMethod.POST, "/ordem-servicos/{id}/evolucoes").hasRole("TECNICO")
 			.anyRequest().authenticated()
 			.and().csrf().disable()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class)
 			.cors()
-				.and().exceptionHandling().accessDeniedHandler((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_FORBIDDEN))
-				.and().exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED));
+			.and().exceptionHandling().accessDeniedHandler((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_FORBIDDEN, "Você não tem permissão para realizar esta operação."))
+			.and().exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Você precisar estar autenticado para realizar esta operação."));
 
 		// TODO busca todos os endpoints e "montar as regras" de quais rotas podem ser acessadas por quem.
 		// TODO descobrir como se faz isso dinamicamente, onde se registra isso.
