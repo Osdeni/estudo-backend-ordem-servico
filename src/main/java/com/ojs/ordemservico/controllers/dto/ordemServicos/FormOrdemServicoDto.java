@@ -31,7 +31,7 @@ public class FormOrdemServicoDto {
     private PessoaDto cliente;
 
     @NotNull
-    private PessoaDto responsavel;
+    private Long responsavel;
 
     private Status status;
 
@@ -89,7 +89,7 @@ public class FormOrdemServicoDto {
         this.cliente = cliente;
     }
 
-    public void setResponsavel(PessoaDto responsavel) {
+    public void setResponsavel(Long responsavel) {
         this.responsavel = responsavel;
     }
 
@@ -102,7 +102,7 @@ public class FormOrdemServicoDto {
         ordem.setTipo(new Tipo(this.tipo));
         ordem.setMarca(new Marca(this.marca));
         ordem.setCliente(new Pessoa(this.cliente.getId()));
-        ordem.setResponsavel(new Funcionario(this.responsavel.getId()));
+        ordem.setResponsavel(new Funcionario(this.responsavel));
 
         return ordem;
     }

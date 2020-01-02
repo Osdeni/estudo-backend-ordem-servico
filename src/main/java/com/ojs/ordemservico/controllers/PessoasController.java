@@ -1,9 +1,12 @@
 package com.ojs.ordemservico.controllers;
 
 import com.ojs.ordemservico.controllers.dto.pessoas.FormPessoaDto;
+import com.ojs.ordemservico.controllers.dto.pessoas.FuncionarioDto;
 import com.ojs.ordemservico.controllers.dto.pessoas.PessoaDto;
+import com.ojs.ordemservico.entities.Funcionario;
 import com.ojs.ordemservico.entities.Pessoa;
 import com.ojs.ordemservico.repository.PessoaRepository;
+import com.ojs.ordemservico.services.FuncionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 @RestController()
@@ -22,6 +26,9 @@ public class PessoasController {
 
     @Autowired
     private PessoaRepository pessoaRepository;
+
+    @Autowired
+    private FuncionarioService funcionarioService;
 
     @GetMapping
     public ResponseEntity<Page<PessoaDto>> all(
@@ -32,15 +39,22 @@ public class PessoasController {
         if (!nome.isPresent()) {
             pessoas = pessoaRepository.findAll(paginacao);
         } else {
-            System.out.println();
             pessoas = pessoaRepository.findByNomeContains(nome.get(), paginacao);
         }
 
         return ResponseEntity.ok().body(PessoaDto.converter(pessoas));
     }
 
+    @GetMapping(path = "/funcionarios")
+    public ResponseEntity<List<FuncionarioDto>> allFuncionarios() {
+
+        List<Funcionario> funcionarios = funcionarioService.findAll();
+
+        return ResponseEntity.ok().body(FuncionarioDto.converter(funcionarios));
+    }
+
     @PostMapping
-    public ResponseEntity<FormPessoaDto> create (@RequestBody @Valid FormPessoaDto form, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<FormPessoaDto> create(@RequestBody @Valid FormPessoaDto form, UriComponentsBuilder uriBuilder) {
 
         Pessoa pessoa = form.converter();
 
