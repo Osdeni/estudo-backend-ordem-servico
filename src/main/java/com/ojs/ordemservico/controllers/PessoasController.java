@@ -33,7 +33,7 @@ public class PessoasController {
     @GetMapping
     public ResponseEntity<Page<PessoaDto>> all(
             @RequestParam("nome") Optional<String> nome,
-            @PageableDefault(sort = {"nome"}) Pageable paginacao) {
+            @PageableDefault(sort = {"nome"}, size = 50) Pageable paginacao) {
 
         Page<Pessoa> pessoas;
         if (!nome.isPresent()) {

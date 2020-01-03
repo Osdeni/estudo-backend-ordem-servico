@@ -32,7 +32,7 @@ public class OrdemServicosController {
     @GetMapping
     public ResponseEntity<Page<OrdemServicoDto>> all(
             @QuerydslPredicate(root = OrdemServico.class) Predicate predicate,
-            @PageableDefault(sort = {"dataAbertura"}, direction = Sort.Direction.DESC) Pageable paginacao) {
+            @PageableDefault(sort = {"dataAbertura"}, direction = Sort.Direction.DESC, size = 50) Pageable paginacao) {
 
         Page<OrdemServico> ordens;
         if (predicate != null) {
