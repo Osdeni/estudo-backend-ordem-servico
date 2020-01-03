@@ -3,7 +3,9 @@ package com.ojs.ordemservico.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "pessoas")
+@Table(name = "pessoas", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"email"}, name = "UK_pessoa_email_unico")
+})
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo", length = 1, discriminatorType = DiscriminatorType.CHAR)
 @DiscriminatorValue(value = "P")
@@ -17,7 +19,7 @@ public class Pessoa {
     @Column(length = 100, nullable = false)
     private String nome;
 
-    @Column(length = 100, nullable = false, unique = true)
+    @Column(length = 100, nullable = false)
     private String email;
 
     @Column(length = 15)
