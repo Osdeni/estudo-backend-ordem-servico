@@ -5,8 +5,8 @@ import com.ojs.ordemservico.controllers.dto.pessoas.FuncionarioDto;
 import com.ojs.ordemservico.controllers.dto.pessoas.PessoaDto;
 import com.ojs.ordemservico.entities.Funcionario;
 import com.ojs.ordemservico.entities.Pessoa;
-import com.ojs.ordemservico.repository.PessoaRepository;
 import com.ojs.ordemservico.services.FuncionarioService;
+import com.ojs.ordemservico.services.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +25,7 @@ import java.util.Optional;
 public class PessoasController {
 
     @Autowired
-    private PessoaRepository pessoaRepository;
+    private PessoaService pessoaService;
 
     @Autowired
     private FuncionarioService funcionarioService;
@@ -33,13 +33,13 @@ public class PessoasController {
     @GetMapping
     public ResponseEntity<Page<PessoaDto>> all(
             @RequestParam("nome") Optional<String> nome,
-            @PageableDefault(sort = {"nome"}) Pageable paginacao) {
+            @PageableDefault(sort = {"nome"}, size = 50) Pageable paginacao) {
 
         Page<Pessoa> pessoas;
         if (!nome.isPresent()) {
-            pessoas = pessoaRepository.findAll(paginacao);
+            pessoas = pessoaService.findAll(paginacao);
         } else {
-            pessoas = pessoaRepository.findByNomeContains(nome.get(), paginacao);
+            pessoas = pessoaService.findByNomeContains(nome.get(), paginacao);
         }
 
         return ResponseEntity.ok().body(PessoaDto.converter(pessoas));
@@ -58,8 +58,7 @@ public class PessoasController {
 
         Pessoa pessoa = form.converter();
 
-        // TODO jogar em service?
-        Pessoa pessoaCriada = pessoaRepository.save(pessoa);
+        Pessoa pessoaCriada = pessoaService.save(pessoa);
 
         URI uri = uriBuilder.path("/pessoas/{pessoaId}").buildAndExpand(pessoaCriada.getId()).toUri();
         return ResponseEntity.created(uri).body(new FormPessoaDto(pessoaCriada));

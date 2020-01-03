@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -38,7 +39,7 @@ public class EvolucaoServiceImpl implements EvolucaoService {
 
         // validando se usuário logado pode realizar esta operação
         UserDetails userDetails = ((Usuario)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        if (((Usuario) userDetails).getId() != ordemServicoOptional.get().getResponsavel().getId()) {
+        if (!Objects.equals(((Usuario) userDetails).getId(), ordemServicoOptional.get().getResponsavel().getId())) {
             throw new ResourceForbidenException("Você não é reponsável da ordem de serviço.");
         }
 
@@ -57,8 +58,7 @@ public class EvolucaoServiceImpl implements EvolucaoService {
 
     @Override
     public List<Evolucao> findByOrdemServicoId(Long ordemServicoId) {
-        List<Evolucao> evolucoes = evolucaoRepository.findByOrdemServicoId(ordemServicoId,
+        return evolucaoRepository.findByOrdemServicoId(ordemServicoId,
                 Sort.by(Sort.Direction.DESC, "data"));
-        return evolucoes;
     }
 }

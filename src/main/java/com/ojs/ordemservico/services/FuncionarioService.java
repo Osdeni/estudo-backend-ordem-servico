@@ -5,5 +5,5 @@ import com.ojs.ordemservico.entities.Funcionario;
 import java.util.List;
 
 public interface FuncionarioService {
-    public List<Funcionario> findAll();
+    List<Funcionario> findAll();
 }

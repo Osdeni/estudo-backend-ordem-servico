@@ -28,7 +28,7 @@ public class EvolucaoDto {
     }
 
     public static List<EvolucaoDto> converter(List<Evolucao> evolucoes) {
-        return evolucoes.stream().map(evolucao -> new EvolucaoDto(evolucao)).collect(Collectors.toList());
+        return evolucoes.stream().map(EvolucaoDto::new).collect(Collectors.toList());
     }
 
     public Long getId() {

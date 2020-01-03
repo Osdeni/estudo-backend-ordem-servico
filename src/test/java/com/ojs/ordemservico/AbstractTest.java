@@ -13,33 +13,33 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import java.util.Optional;
 
 public abstract class AbstractTest {
-    protected String funcRoleAtendimento = "func1@gmail.com";
-    protected String funcRoleTecnico = "func2@gmail.com";
-    protected String funcRoleTecnico2 = "func3@gmail.com";
+    String funcRoleAtendimento = "func1@gmail.com";
+    String funcRoleTecnico = "func2@gmail.com";
+    String funcRoleTecnico2 = "func3@gmail.com";
 
     @Autowired
-    protected TokenService tokenService;
+    TokenService tokenService;
 
     @Autowired
-    protected UsuarioRepository usuarioRepository;
+    UsuarioRepository usuarioRepository;
 
     @LocalServerPort
-    protected int port;
+    int port;
 
-    protected String token;
+    String token;
 
     @Autowired
-    protected MockMvc mvc;
+    MockMvc mvc;
 
-    protected MockHttpServletRequestBuilder auth(MockHttpServletRequestBuilder m) {
+    MockHttpServletRequestBuilder auth(MockHttpServletRequestBuilder m) {
         return m.header("Authorization", "Bearer " + this.token);
     }
 
-    protected MockHttpServletRequestBuilder auth(MockHttpServletRequestBuilder m, String token) {
+    MockHttpServletRequestBuilder auth(MockHttpServletRequestBuilder m, String token) {
         return m.header("Authorization", "Bearer " + token);
     }
 
-    protected String mockToken(String email) throws ResourceNotFoundException {
+    String mockToken(String email) throws ResourceNotFoundException {
         Optional<Usuario> usuarioFuncAtendimento = usuarioRepository.findByEmail(email);
 
         if (usuarioFuncAtendimento.isPresent()) {

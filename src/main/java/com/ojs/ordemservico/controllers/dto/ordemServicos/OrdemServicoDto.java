@@ -106,6 +106,6 @@ public class OrdemServicoDto {
     }
 
     public static Page<OrdemServicoDto> converter(Page<OrdemServico> ordens) {
-        return ordens.map(ordemServico -> new OrdemServicoDto(ordemServico));
+        return ordens.map(OrdemServicoDto::new);
     }
 }

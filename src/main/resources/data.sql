@@ -34,7 +34,7 @@ INSERT INTO pessoas (tipo, email, endereco, nome, telefone, usuario_id) VALUES (
 
 -- ordens de serviço
 insert into ordem_servicos (data_abertura, data_finalizacao, defeito, cliente_id, marca_id, responsavel_id, tipo_id, status) VALUES ('2019-12-23', null, 'trocando os canais de forma automática', 5, 1, 2, 1, 0);
-insert into ordem_servicos (data_abertura, data_finalizacao, defeito, cliente_id, marca_id, responsavel_id, tipo_id, status) VALUES ('2019-12-23', null, 'trocando os canais de forma automática outro tecnico', 5, 1, 3, 1, 0);
+insert into ordem_servicos (data_abertura, data_finalizacao, defeito, cliente_id, marca_id, responsavel_id, tipo_id, status) VALUES ('2019-12-10', null, 'Caiu e não liga mais', 5, 2, 3, 1, 0);
 insert into ordem_servicos (data_abertura, data_finalizacao, defeito, cliente_id, marca_id, responsavel_id, tipo_id, status) VALUES ('2019-12-22', null, 'as vezes liga, as vezes não liga', 4, 6, 2, 2, 1);
 insert into ordem_servicos (data_abertura, data_finalizacao, defeito, cliente_id, marca_id, responsavel_id, tipo_id, status) VALUES ('2019-12-23', null, 'tela não está funcionando', 5, 4, 3, 2, 3);
 insert into ordem_servicos (data_abertura, data_finalizacao, defeito, cliente_id, marca_id, responsavel_id, tipo_id, status) VALUES ('2019-12-26', null, 'Tela com ponto falho', 5, 4, 3, 2, 2);
