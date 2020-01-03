@@ -41,7 +41,8 @@ public class ErroValidacaoHandler {
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler({ConstraintViolationException.class})
     public ErroFormDto hadleDataException(ConstraintViolationException ex) {
-        return new ErroFormDto(ex.getConstraintName());
+        String msg = ex.getMessage() + " - " + ex.getConstraintName() + " - " + ex.getCause();
+        return new ErroFormDto(msg);
     }
 
 }
