@@ -8,7 +8,9 @@ import org.junit.runners.Suite;
         AutenticacaoTest.class,
         PessoaTest.class,
         TipoTest.class,
-        MarcaTest.class
+        MarcaTest.class,
+        OrdemServicoTest.class,
+        EvolucaoTest.class
 })
 public class AppTest {
 }

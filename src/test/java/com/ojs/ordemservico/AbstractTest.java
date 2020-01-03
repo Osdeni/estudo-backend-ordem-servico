@@ -15,6 +15,7 @@ import java.util.Optional;
 public abstract class AbstractTest {
     protected String funcRoleAtendimento = "func1@gmail.com";
     protected String funcRoleTecnico = "func2@gmail.com";
+    protected String funcRoleTecnico2 = "func3@gmail.com";
 
     @Autowired
     protected TokenService tokenService;
