@@ -25,6 +25,13 @@ public class FormPessoaDto {
     public FormPessoaDto() {
     }
 
+    public FormPessoaDto(String nome, String email, String endereco, String telefone) {
+        this.nome = nome;
+        this.email = email;
+        this.endereco = endereco;
+        this.telefone = telefone;
+    }
+
     public FormPessoaDto(Pessoa pessoa) {
         this.id = pessoa.getId();
         this.nome = pessoa.getNome();

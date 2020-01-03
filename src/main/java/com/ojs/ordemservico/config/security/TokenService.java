@@ -27,15 +27,18 @@ public class TokenService {
 	}
 
 	public String gerarToken(Authentication authentication) {
-		usuarioLogado = (Usuario) authentication.getPrincipal();
+		return this.gerarToken((Usuario) authentication.getPrincipal());
+	}
 
+	public String gerarToken(Usuario usuario) {
+	    this.usuarioLogado = usuario;
 		Date hoje = new Date();
 		Date dataExpiracao = new Date(hoje.getTime() + Long.parseLong(expiration));
 
 		return Jwts.builder()
 				.setIssuer("Api Ordem de Serviço")
-				.setSubject(usuarioLogado.getId().toString())
-				.claim("usuario", new UsuarioDto(usuarioLogado))
+				.setSubject(usuario.getId().toString())
+				.claim("usuario", new UsuarioDto(usuario))
 				.setIssuedAt(hoje)
 				.setExpiration(dataExpiracao)
 				.signWith(SignatureAlgorithm.HS256, secret)

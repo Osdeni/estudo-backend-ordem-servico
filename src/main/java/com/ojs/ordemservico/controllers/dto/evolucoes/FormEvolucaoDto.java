@@ -22,6 +22,10 @@ public class FormEvolucaoDto {
 
     }
 
+    public FormEvolucaoDto(String descricao) {
+        this.descricao = descricao;
+    }
+
     public FormEvolucaoDto(Evolucao evolucao) {
         this.id = evolucao.getId();
         this.data = evolucao.getData();

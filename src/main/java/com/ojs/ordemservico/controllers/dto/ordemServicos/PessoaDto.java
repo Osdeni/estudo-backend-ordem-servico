@@ -9,6 +9,13 @@ public class PessoaDto {
     @NotNull
     private String nome;
 
+    public PessoaDto() {
+
+    }
+
+    public PessoaDto(int id) {
+        this.id = new Long(id);
+    }
 
     public Long getId() {
         return id;

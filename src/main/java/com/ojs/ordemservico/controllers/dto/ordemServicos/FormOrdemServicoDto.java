@@ -12,10 +12,10 @@ public class FormOrdemServicoDto {
     private Long id;
 
     @NotNull
-    @JsonFormat(pattern="dd/MM/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataAbertura;
 
-    @JsonFormat(pattern="dd/MM/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataFinalizacao;
 
     @NotBlank
@@ -38,6 +38,17 @@ public class FormOrdemServicoDto {
     public FormOrdemServicoDto() {
         this.dataAbertura = null;
         this.dataFinalizacao = null;
+    }
+
+    public FormOrdemServicoDto(Date dataAbertura, String defeito, int tipo, int marca,
+                               PessoaDto cliente, int responsavel) {
+        super();
+        this.dataAbertura = dataAbertura;
+        this.defeito = defeito;
+        this.tipo = new Long(tipo);
+        this.marca = new Long(marca);
+        this.cliente = cliente;
+        this.responsavel = new Long(responsavel);
     }
 
     public FormOrdemServicoDto(OrdemServico ordemServico) {
@@ -91,6 +102,26 @@ public class FormOrdemServicoDto {
 
     public void setResponsavel(Long responsavel) {
         this.responsavel = responsavel;
+    }
+
+    public Long getTipo() {
+        return tipo;
+    }
+
+    public Long getMarca() {
+        return marca;
+    }
+
+    public PessoaDto getCliente() {
+        return cliente;
+    }
+
+    public Long getResponsavel() {
+        return responsavel;
+    }
+
+    public Status getStatus() {
+        return status;
     }
 
     public OrdemServico converter() {
