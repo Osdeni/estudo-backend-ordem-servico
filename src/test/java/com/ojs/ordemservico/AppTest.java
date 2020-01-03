@@ -5,7 +5,10 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        PessoaTest.class
+        AutenticacaoTest.class,
+        PessoaTest.class,
+        TipoTest.class,
+        MarcaTest.class
 })
 public class AppTest {
 }

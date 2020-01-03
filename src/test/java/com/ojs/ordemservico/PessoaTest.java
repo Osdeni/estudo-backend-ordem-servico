@@ -1,24 +1,13 @@
 package com.ojs.ordemservico;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ojs.ordemservico.config.exception.ResourceNotFoundException;
-import com.ojs.ordemservico.config.security.TokenService;
 import com.ojs.ordemservico.controllers.dto.pessoas.FormPessoaDto;
-import com.ojs.ordemservico.entities.Usuario;
-import com.ojs.ordemservico.repository.UsuarioRepository;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-
-import java.util.Optional;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -31,48 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class PessoaTest {
-
-    private final String funcRoleAtendimento = "func1@gmail.com";
-    private final String funcRoleTecnico = "func2@gmail.com";
-
-    @Autowired
-    private TokenService tokenService;
-
-    @Autowired
-    private UsuarioRepository usuarioRepository;
-
-    @LocalServerPort
-    private int port;
-
-    private String token;
-
-    @Autowired
-    private MockMvc mvc;
-
-    private MockHttpServletRequestBuilder auth(MockHttpServletRequestBuilder m) {
-        return m.header("Authorization", "Bearer " + this.token);
-    }
-
-    private MockHttpServletRequestBuilder auth(MockHttpServletRequestBuilder m, String token) {
-        return m.header("Authorization", "Bearer " + token);
-    }
-
-    private String mockToken(String email) throws ResourceNotFoundException {
-        Optional<Usuario> usuarioFuncAtendimento = usuarioRepository.findByEmail(email);
-
-        if (usuarioFuncAtendimento.isPresent()) {
-            return this.tokenService.gerarToken(usuarioFuncAtendimento.get());
-        }
-
-        throw new ResourceNotFoundException("Usuário não encontrado");
-    }
-
-    @Before
-    public void setupToken() throws ResourceNotFoundException {
-        System.out.println("######## GERANDO TOKEN ######## ");
-        this.token = this.mockToken(funcRoleAtendimento);
-    }
+public class PessoaTest extends AbstractTest {
 
     @Test
     public void acessoSemToken() throws Exception {
