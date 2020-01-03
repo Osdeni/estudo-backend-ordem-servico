@@ -5,7 +5,7 @@ import com.ojs.ordemservico.controllers.dto.ordemServicos.FormOrdemServicoDto;
 import com.ojs.ordemservico.controllers.dto.ordemServicos.OrdemServicoDto;
 import com.ojs.ordemservico.entities.OrdemServico;
 import com.ojs.ordemservico.enums.Status;
-import com.ojs.ordemservico.repository.OrdemServicoRepository;
+import com.ojs.ordemservico.services.OrdemServicoService;
 import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,14 +19,15 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 @RestController
 @RequestMapping("/ordem-servicos")
 public class OrdemServicosController {
 
     @Autowired
-    private OrdemServicoRepository ordemServicoRepository;
+    private OrdemServicoService ordemServicoService;
 
     @GetMapping
     public ResponseEntity<Page<OrdemServicoDto>> all(
@@ -35,28 +36,27 @@ public class OrdemServicosController {
 
         Page<OrdemServico> ordens;
         if (predicate != null) {
-            ordens = ordemServicoRepository.findAll(predicate, paginacao);
+            ordens = ordemServicoService.findAll(predicate, paginacao);
         } else {
-            ordens = ordemServicoRepository.findAll(paginacao);
+            ordens = ordemServicoService.findAll(paginacao);
         }
 
         return ResponseEntity.ok().body(OrdemServicoDto.converter(ordens));
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<OrdemServicoDto> get(@PathVariable Long id) throws ResourceNotFoundException
-    {
-        OrdemServico ordemServico = this.ordemServicoRepository.findById(id)
+    public ResponseEntity<OrdemServicoDto> get(@PathVariable Long id) throws ResourceNotFoundException {
+        OrdemServico ordemServico = ordemServicoService.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Ordem de serviço não encontrada: " + id));
 
         return ResponseEntity.ok().body(new OrdemServicoDto(ordemServico));
     }
 
     @PostMapping
-    public ResponseEntity<FormOrdemServicoDto> create (@RequestBody @Valid FormOrdemServicoDto form, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<FormOrdemServicoDto> create(@RequestBody @Valid FormOrdemServicoDto form, UriComponentsBuilder uriBuilder) {
 
         OrdemServico ordemServico = form.converter();
-        OrdemServico ordemCriada = ordemServicoRepository.save(ordemServico);
+        OrdemServico ordemCriada = ordemServicoService.save(ordemServico);
 
         URI uri = uriBuilder.path("/ordem-servicos/{ordemId}").buildAndExpand(ordemCriada.getId()).toUri();
         return ResponseEntity.created(uri).body(new FormOrdemServicoDto(ordemCriada));
