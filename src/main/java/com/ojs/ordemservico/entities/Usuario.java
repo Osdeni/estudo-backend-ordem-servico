@@ -49,10 +49,20 @@ public class Usuario implements UserDetails, Serializable {
                     name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
 
+    public Usuario() {
+
+    }
+
+    public Usuario(Long id, String email, Funcionario pessoa, Set<Role> roles) {
+        this.id = id;
+        this.email = email;
+        this.pessoa = pessoa;
+        this.roles = roles;
+    }
+
     public Long getId() {
         return id;
     }
-
 
     public String getEmail() {
         return email;
