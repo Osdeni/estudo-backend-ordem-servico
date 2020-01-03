@@ -1,5 +1,6 @@
 package com.ojs.ordemservico.config.security;
 
+import com.ojs.ordemservico.controllers.dto.autenticacao.UsuarioDto;
 import com.ojs.ordemservico.entities.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -19,16 +20,25 @@ public class TokenService {
 	@Value("${jwt.secret}")
 	private String secret;
 
-	public String gerarToken(Authentication authentication) {
-		Usuario logado = (Usuario) authentication.getPrincipal();
+	private Usuario usuarioLogado;
 
+	public Usuario getUsuarioLogado() {
+		return usuarioLogado;
+	}
+
+	public String gerarToken(Authentication authentication) {
+		return this.gerarToken((Usuario) authentication.getPrincipal());
+	}
+
+	public String gerarToken(Usuario usuario) {
+	    this.usuarioLogado = usuario;
 		Date hoje = new Date();
 		Date dataExpiracao = new Date(hoje.getTime() + Long.parseLong(expiration));
 
 		return Jwts.builder()
 				.setIssuer("Api Ordem de Serviço")
-				.setSubject(logado.getId().toString())
-				.claim("nome", logado.getPessoa().getNome())
+				.setSubject(usuario.getId().toString())
+				.claim("usuario", new UsuarioDto(usuario))
 				.setIssuedAt(hoje)
 				.setExpiration(dataExpiracao)
 				.signWith(SignatureAlgorithm.HS256, secret)

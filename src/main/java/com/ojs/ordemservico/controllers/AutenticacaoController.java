@@ -1,8 +1,7 @@
 package com.ojs.ordemservico.controllers;
 
 import com.ojs.ordemservico.config.security.TokenService;
-import com.ojs.ordemservico.controllers.dto.autenticacao.LoginForm;
-import com.ojs.ordemservico.controllers.dto.autenticacao.TokenDto;
+import com.ojs.ordemservico.controllers.dto.autenticacao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,7 +17,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/autenticar")
-public class Autenticacao {
+public class AutenticacaoController {
     @Autowired
     AuthenticationManager authManager;
 
@@ -26,7 +25,7 @@ public class Autenticacao {
     TokenService tokenService;
 
     @PostMapping
-    public ResponseEntity<TokenDto> autenticar(@RequestBody @Valid LoginForm form) {
+    public ResponseEntity<AutenticacaoDto> autenticar(@RequestBody @Valid LoginForm form) {
 
         UsernamePasswordAuthenticationToken dadosLogin = form.converter();
 
@@ -35,9 +34,11 @@ public class Autenticacao {
 
             String token = tokenService.gerarToken(authentication);
 
-            return ResponseEntity.ok(new TokenDto(token, "Bearer"));
+            UsuarioDto usuarioLogado = new UsuarioDto(tokenService.getUsuarioLogado());
+            
+            return ResponseEntity.ok(new TokenDto(token, "Bearer", usuarioLogado));
         } catch (AuthenticationException e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(new ErroDto("Usuário ou senha inválidos"));
         }
 
     }

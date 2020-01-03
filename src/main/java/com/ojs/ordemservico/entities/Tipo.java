@@ -20,6 +20,14 @@ public class Tipo {
     @Size(min = 2, max = 50)
     private String descricao;
 
+    public Tipo() {
+
+    }
+
+    public Tipo(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }
