@@ -20,7 +20,7 @@ public class FuncionarioDto {
     }
 
     public static List<FuncionarioDto> converter(List<Funcionario> funcionarios) {
-        return funcionarios.stream().map(funcionario -> new FuncionarioDto(funcionario)).collect(Collectors.toList());
+        return funcionarios.stream().map(FuncionarioDto::new).collect(Collectors.toList());
     }
 
     public Long getId() {
@@ -41,5 +41,13 @@ public class FuncionarioDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 }

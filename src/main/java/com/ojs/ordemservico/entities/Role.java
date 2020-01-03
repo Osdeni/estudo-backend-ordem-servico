@@ -1,7 +1,6 @@
 package com.ojs.ordemservico.entities;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Set;
 
 @Entity

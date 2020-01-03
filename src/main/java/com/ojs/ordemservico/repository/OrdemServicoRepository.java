@@ -19,8 +19,8 @@ public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Long
         QuerydslPredicateExecutor<OrdemServico>,
         QuerydslBinderCustomizer<QOrdemServico> {
 
-    public Optional<OrdemServico> findById(Long id);
-    public Page<OrdemServico> findByStatus(Status status, Pageable pageable);
+    Optional<OrdemServico> findById(Long id);
+    Page<OrdemServico> findByStatus(Status status, Pageable pageable);
 
     @Override
     default void customize(QuerydslBindings bindings, QOrdemServico ordemServico) {

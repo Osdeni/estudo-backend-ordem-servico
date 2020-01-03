@@ -45,6 +45,6 @@ public class PessoaDto {
     }
 
     public static Page<PessoaDto> converter(Page<Pessoa> pessoas) {
-        return pessoas.map(pessoa -> new PessoaDto(pessoa));
+        return pessoas.map(PessoaDto::new);
     }
 }

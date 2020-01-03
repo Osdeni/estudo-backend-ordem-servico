@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface EvolucaoRepository extends JpaRepository<Evolucao, Long> {
-    public List<Evolucao> findByOrdemServicoId(Long ordemServicoId, Sort sort);
+    List<Evolucao> findByOrdemServicoId(Long ordemServicoId, Sort sort);
 }
