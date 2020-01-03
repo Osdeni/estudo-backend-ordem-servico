@@ -5,6 +5,8 @@
     * Maven para gerenciamento das dependências;
     * JPA com Hibernate
     * Mysql com base via docker-compose;
+    * Documentação da API com swagger;
+        * http://localhost:8082/api/swagger-ui.html
     * Habilitado actuator para avaliação de saúde do serviço;
         * http://localhost:8082/api/actuator/health
     * Autenticação com JWT;
@@ -26,15 +28,11 @@
    
    
 ## Dados de acessos:
-    Documentação: http://localhost:8082/api/swagger-ui.html
     http://localhost:8082/api/
 
-|
     func1@gmail.com:
     senha: secret
     Role: ATENDIMENTO(Pode criar ordens)
-    
-|
         
     func2@gmail.com e func3@gmail.com:
     senha: secret
