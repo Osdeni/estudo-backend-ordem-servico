@@ -1,14 +1,20 @@
 # Ordem de serviço - Estudos e Aprendizado
 
+### Publicação em nuvem:
+    http://34.95.145.32:8082
+        * Google cloud console
+        * Docker e Kubernetes
+        * referências: (https://github.com/Osdeni/kubernets-gcp)
+
 - Recursos utilizados:
     * Git e Gitflow
     * Maven para gerenciamento das dependências;
     * JPA com Hibernate
     * Mysql com base via docker-compose;
     * Documentação da API com swagger;
-        * http://localhost:8082/api/swagger-ui.html
+        * http://34.95.145.32:8082/api/swagger-ui.html
     * Habilitado actuator para avaliação de saúde do serviço;
-        * http://localhost:8082/api/actuator/health
+        * http://34.95.145.32:8082/api/actuator/health
     * Autenticação com JWT;
     * Liberação de CORS para aplicação de front-end (por momento *)
     * Querysql nas api de listagem de ordem de serviços;
@@ -28,7 +34,8 @@
    
    
 ## Dados de acessos:
-    http://localhost:8082/api/
+    Nuvem: http://34.95.145.32:8082/api/
+    Local: http://localhost:8082/api/
 
     func1@gmail.com:
     senha: secret
